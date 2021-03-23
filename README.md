@@ -3,7 +3,7 @@
 > 
 > Created with ❤️ as an exam application for the lecture "Big Data" at DHBW Stuttgart.
 
-## Structure
+## Technical Documentation
 The repository is structured in a way to represent the docker container ecosystem of this application.
 
 See the following READMEs to learn more about its components.
