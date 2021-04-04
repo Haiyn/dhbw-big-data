@@ -8,3 +8,7 @@ db.createUser({
         }
     ]
 });
+
+db = new Mongo().getDB("dhbw-big-data-mongodb");
+
+db.createCollection('Cards', { capped: false });

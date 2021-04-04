@@ -1,3 +1,4 @@
+
 FROM node:alpine
 
 # Data preparation
@@ -22,4 +23,4 @@ COPY . /usr/src/app
 RUN yarn build
 
 EXPOSE 3000
-CMD [ "yarn", "start" ]
+CMD [ "yarn", "dev" ]

@@ -8,16 +8,16 @@ The repository is structured in a way to represent the docker container ecosyste
 
 See the following READMEs to learn more about its components.
 
-### [1. Airflow ETL](./src/airflow/README.md)
+### [1. Airflow ETL](./src/airflow)
 Airflow is used to run automatic jobs to handle everything around creating, updating and transforming raw and final data.
 
-### [2. Hive Server](./src/hive/README.md)
-The hive server handles the raw data fetching and final data transformation for later storage.
+### [2. PySpark](./src/airflow/python)
+A PySpark script handles the final data transformation for later storage.
 
-### [3. MongoDB](./src/mongodb/README.md)
-The MongoDB database offers a key-value storage for saving the final MTG data.
+### [3. MongoDB](./src/mongodb)
+The MongoDB database offers a document storage for saving the final MTG data.
 
-### [4. Next.js Frontend](./src/frontend/README.md)
+### [4. Next.js Frontend](./src/frontend)
 The React Next.js frontend is used to give the user an interface for interacting with the final data.
 
 ## Getting Started

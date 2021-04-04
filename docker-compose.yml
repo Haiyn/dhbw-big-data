@@ -1,34 +1,38 @@
 version: "3.9"
 
 services:
-  big-data-frontend:
-    container_name: frontend
-    build: ./src/frontend
-    image: dhbw-big-data-frontend:latest
-    ports:
-      - "3000:3000"
-    restart: always
+#  big-data-frontend:
+#    container_name: frontend
+#    build: ./src/frontend
+#    image: dhbw-big-data-frontend:latest
+#    ports:
+#      - "3000:3000"
+#    restart: always
 
-  big-data-hive:
-    container_name: hive
-    image: marcelmittelstaedt/hiveserver_base:latest
-    ports:
-      - "8088:8088"
-      - "9000:9000"
-      - "9864:9864"
-      - "9870:9870"
-      - "10000:10000"
-    restart: always
-    # Start the hive server in the container via bash commands
-    command: bash -c "sudo su hadoop && cd && start-all.sh && hiveserver2"
+#  big-data-spark:
+#    container_name: hadoop
+#    image: marcelmittelstaedt/spark_base:latest
+#    ports:
+#      - "8030:8030"
+#      - "8031:8031"
+#      - "8032:8032"
+#      - "8088:8088"
+#      - "8888:8888"
+#      - "9000:9000"
+#      - "9864:9864"
+#      - "9870:9870"
+#      - "10000:10000"
+#    restart: always
+#    # Start spark in the container via bash commands
+#    command: bash -c "sudo su hadoop && cd && start-all.sh && pyspark --master yarn"
 
 
-  big-data-airflow:
-    container_name: airflow
-    image: marcelmittelstaedt/airflow:latest
-    ports:
-      - "8080:8080"
-    restart: always
+#  big-data-airflow:
+#    container_name: airflow
+#    image: marcelmittelstaedt/airflow:latest
+#    ports:
+#      - "8080:8080"
+#    restart: always
 
   big-data-mongodb:
     image: mongo

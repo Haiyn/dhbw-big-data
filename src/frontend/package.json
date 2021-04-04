@@ -1,15 +1,19 @@
 {
-  "name": "big-data-frontend",
+  "name": "with-mongodb",
   "version": "0.1.0",
-  "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start"
   },
   "dependencies": {
-    "next": "10.0.9",
-    "react": "17.0.1",
-    "react-dom": "17.0.1"
-  }
+    "@rebass/forms": "^4.0.6",
+    "mongodb": "^3.5.9",
+    "next": "latest",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "rebass": "^4.0.7",
+    "swr": "^0.5.5"
+  },
+  "license": "MIT"
 }
