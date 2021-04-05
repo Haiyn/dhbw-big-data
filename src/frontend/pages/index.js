@@ -2,8 +2,7 @@ import Head from 'next/head'
 import { connectToDatabase } from '../util/mongodb'
 import { Box, Card, Image, Heading, Text, Flex, Button } from 'rebass'
 import { Label, Input } from '@rebass/forms'
-import React, { useState, useEffect } from 'react';
-import useSWR from 'swr'
+import React, { useState } from 'react';
 
 const fetcher = url => fetch(url).then(res => res.json());
 
@@ -13,32 +12,32 @@ export default function Home({ isConnected }) {
   const [ artist, setArtist ] = useState("");
   const [ cards, setCards ] = useState([]);
 
-
-
-
-  const get_cards = (e) => {
+  function get_url() {
     console.log("Getting cards with parameters.");
     console.log("Artist " + artist);
     console.log("ID " + multiverseid);
     console.log("Name " + name);
-    let api_route = '/api/cards';
-    api_route += multiverseid !== "" ? multiverseid : "";
-    api_route += name !== "" ? name : "";
-    api_route += artist !== "" ? artist : "";
-    console.log(api_route)
+    let api_route = '/api/cards?';
+    let parameters = [];
+
+    if(multiverseid !== "") parameters["multiverseid"] = multiverseid
+    if(artist !== "") parameters["artist"] = artist
+    if(name !== "") parameters["name"] = name
+
+    let encodedParameters = Object.keys(parameters).map(function(key) {
+      return [key, parameters[key]].map(encodeURIComponent).join("=");
+    }).join("&");
+
+    return api_route + encodedParameters;
     //setCards(useSWR(api_route, fetch));
   }
 
-
-
   return (
-    <Flex className="container">
+      <div>
       <Head>
         <title>MTG Card Search</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <main>
         <Heading fontSize={[ 5 ]}>
           Magic The Gathering Card Search
         </Heading>
@@ -86,19 +85,21 @@ export default function Home({ isConnected }) {
           </Box>
         </Flex>
 
-        <Button onClick={fetcher('api/cards').then(res => setCards(res))} variant='primary' style={{ background: "blue"}}>Search Now</Button>
+        <Button onClick={() => fetcher(get_url()).then(res => setCards(res))} variant='primary' style={{ background: "blue"}}>Search Now</Button>
 
-
-        <Flex mx={-2} mb={3}>
+        <Flex flexWrap='wrap' mx={-2} mb={3}>
           {cards.map((card) => (
-            <Box width={256}>
+            <Box width={300} px={2}>
               <Card
                 sx={{
                   p: 1,
                   borderRadius: 2,
                   boxShadow: '0 0 16px rgba(0, 0, 0, .25)',
                 }}>
-                <Image src={ "http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=" + card.multiverseid} />
+                <Image src={"http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=" + card.multiverseid} sx={{
+                  width: '100%',
+                  borderRadius: 8,
+                }}/>
                 <Box px={2}>
                   <Heading>
                     {card.name}
@@ -114,8 +115,7 @@ export default function Home({ isConnected }) {
             </Box>
           ))}
         </Flex>
-      </main>
-    </Flex>
+      </div>
   )
 }
 
