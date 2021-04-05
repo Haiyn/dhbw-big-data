@@ -45,7 +45,6 @@ class HttpDownloadOperator(BaseOperator):
 
             # Check if the cards array in the response is empty. If so, exit the loop
             if 'cards' not in r or len(r['cards']) == 0:
-                self.log.info("HttpDownloadOperator done.")
                 break
 
             # Append the data
@@ -60,7 +59,6 @@ class HttpDownloadOperator(BaseOperator):
 
             # Increment page and continue
             page_num = page_num + 1
-            self.log.info("Appended contents. Continuing on page " + page_num)
 
         self.log.info("HttpDownloadOperator done.")
 

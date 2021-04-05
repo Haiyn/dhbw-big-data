@@ -1,0 +1,20 @@
+[
+  {
+    "multiverseid": "130550",
+    "name": "Ancestor's Chosen",
+    "artist": "Pete Venters",
+    "text": "First strike (This creature deals combat damage before creatures without first strike.)\\nWhen Ancestor's Chosen enters the battlefield, you gain 1 life for each card in your graveyard."
+  },
+  {
+    "multiverseid": "129465",
+    "name": "Angel of Mercy",
+    "artist": "Volkan Baǵa",
+    "text": "Flying\\nWhen Angel of Mercy enters the battlefield, you gain 3 life."
+  },
+  {
+    "multiverseid": "129470",
+    "name": "Aven Cloudchaser",
+    "artist": "Justin Sweet",
+    "text": "Flying (This creature can't be blocked except by creatures with flying or reach.)\\nWhen Aven Cloudchaser enters the battlefield, destroy target enchantment."
+  }
+]
