@@ -4,9 +4,9 @@ FROM marcelmittelstaedt/airflow:latest
 RUN sudo apt install mongo-tools -y
 
 # Copy all needed data to container
-COPY ./dags/mtg-fetch.py /home/airflow/airflow/dags
-COPY ./plugins/operators/http_download_operator.py /home/airflow/airflow/plugins
-COPY ./python/pyspark_format_mtg_cards.py /home/airflow/airflow/python
+COPY ./dags/mtg-fetch.py /home/airflow/airflow/dags/
+COPY ./plugins/operators/http_download_operator.py /home/airflow/airflow/plugins/
+COPY ./python/pyspark_format_mtg_cards.py /home/airflow/airflow/python/
 
 EXPOSE 8030
 EXPOSE 8031
