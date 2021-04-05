@@ -66,13 +66,13 @@ pyspark_create_final_mtg_data = SparkSubmitOperator(
     name='pyspark_create_final_mtg_data',
     verbose=True,
     application_args=['--year', '{{ macros.ds_format(ds, "%Y-%m-%d", "%Y")}}', '--month', '{{ macros.ds_format(ds, "%Y-%m-%d", "%m")}}', '--day',  '{{ macros.ds_format(ds, "%Y-%m-%d", "%d")}}', '--hdfs_source_dir', '/user/hadoop/mtg/raw', '--hdfs_target_dir', '/user/hadoop/mtg/final/mtg_cards', '--hdfs_target_format', 'json'],
-    dag = dag
+    dag=dag
 )
 
 # Import final file into MongoDB via bash
 insert_into_mongodb = BashOperator(
     task_id='bash_insert_into_mongodb',
-    bash_command='mongoimport --jsonArray --uri "mongodb://dev:dev@mongodb:27017/dhbw-big-data-mongodb" --collection Cards --file /user/hadoop/mtg/final/mtg_cards.json --batchSize 100 --numInsertionWorkers 310'
+    bash_command='mongoimport --jsonArray --uri "mongodb://dev:dev@mongodb:27017/dhbw-big-data-mongodb" --collection Cards --file /user/hadoop/mtg/final/mtg_cards.json --batchSize 100 --numInsertionWorkers 310',
     dag=dag
 )
 
