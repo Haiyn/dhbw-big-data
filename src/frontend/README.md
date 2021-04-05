@@ -1,49 +1,45 @@
-## Example app using MongoDB
+# dhbw-big-data-frontend
 
-[MongoDB](https://www.mongodb.com/) is a general purpose, document-based, distributed database built for modern application developers and for the cloud era. This example will show you how to connect to and use MongoDB as your backend for your Next.js app.
+> A Next.js frontend used to interact with the card data in the MongoDB.
 
-If you want to learn more about MongoDB, visit the following pages:
+## Technical Details
+Next.js is a React framework that offers a built-in API. 
 
-- [MongoDB Atlas](https://mongodb.com/atlas)
-- [MongoDB Documentation](https://docs.mongodb.com/)
+The application uses Rebass as a frontend framework.
 
-## Deploy your own
+This application contains an automatic connection to a MongoDB outlined by the Configuration of the application.
+The route `/api/cards` is available to fetch cards from the MongoDB. It can be parameterized with the following 
+parameters:
+- `multiverseid` An integer that will be matched _exactly_.
+- `name` A string that will be matched with all entries _containing_ the string.
+- `artist` A string that will be matched with all entries _containing_ the string.
 
-Once you have access to the environment variables you'll need, deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
+All route calls will return a maximum of 200 cards.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-mongodb&project-name=with-mongodb&repository-name=with-mongodb&env=MONGODB_URI,MONGODB_DB&envDescription=Required%20to%20connect%20the%20app%20with%20MongoDB)
-
-## How to use
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
-
-```bash
-npx create-next-app --example with-mongodb with-mongodb-app
-# or
-yarn create next-app --example with-mongodb with-mongodb-app
+Parameters can be combined with HTTP GET parameters:
+```
+/api/cards?artist=DaVinci&text=Angel
 ```
 
-## Configuration
-
-### Set up a MongoDB database
-
-Set up a MongoDB database either locally or with [MongoDB Atlas for free](https://mongodb.com/atlas).
+## Development & Deployment
 
 ### Set up environment variables
 
-Copy the `env.local.example` file in this directory to `.env.local` (which will be ignored by Git):
-
-```bash
-cp .env.local .env.local
+Ensure that a `.env.local` environment file is present at the document root.
+By default, these variables should be set as follows:
+```
+MONGODB_URI=mongodb://dev:dev@127.0.0.1:27017/dhbw-big-data-mongodb
+MONGODB_DB=dhbw-big-data-mongodb
 ```
 
-Set each variable on `.env.local`:
-
-- `MONGODB_URI` - Your MongoDB connection string. If you are using [MongoDB Atlas](https://mongodb.com/atlas) you can find this by clicking the "Connect" button for your cluster.
+- `MONGODB_URI` - Your MongoDB connection string. 
 - `MONGODB_DB` - The name of the MongoDB database you want to use.
 
-### Run Next.js in development mode
+See the [dhbw-big-data-mongodb documentation](/src/mongodb) for more information on these variables.
 
+### Deployment on localhost
+
+To start the application with development features such as live reload, run it with the following commands:
 ```bash
 npm install
 npm run dev
@@ -54,24 +50,22 @@ yarn install
 yarn dev
 ```
 
-Your app should be up and running on [http://localhost:3000](http://localhost:3000)! If it doesn't work, post on [GitHub discussions](https://github.com/vercel/next.js/discussions).
+The application will only work with a running MongoDB database to connect to as outlined in the Configuration section. 
+Make sure the frontend container is not already running and blocking the same port.
 
-You will either see a message stating "You are connected to MongoDB" or "You are NOT connected to MongoDB". Ensure that you have provided the correct `MONGODB_URI` and `MONGODB_DB` environment variables.
+The application will be up and running on [http://localhost:3000](http://localhost:3000).
 
-When you are successfully connected, you can refer to the [MongoDB Node.js Driver docs](https://mongodb.github.io/node-mongodb-native/3.4/tutorials/collections/) for further instructions on how to query your database.
+### Deployment on a server
 
-## Deploy on Vercel
+Simply use the [`docker-compose.yml` file](/docker-compose.yml) to automatically start the docker container which 
+contains the latest image of the frontend application. 
 
-You can deploy this app to the cloud with [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+The docker-compose file deploys the application as follows:
+```bash
+yarn build
+yarn start
+```
 
-#### Deploy Your Local Project
+The application will be reachable on port `3000` on your servers domain or IP address.
 
-To deploy your local project to Vercel, push it to GitHub/GitLab/Bitbucket and [import to Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example).
-
-**Important**: When you import your project on Vercel, make sure to click on **Environment Variables** and set them to match your `.env.local` file.
-
-#### Deploy from Our Template
-
-Alternatively, you can deploy using our template by clicking on the Deploy button below.
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-mongodb&project-name=with-mongodb&repository-name=with-mongodb&env=MONGODB_URI,MONGODB_DB&envDescription=Required%20to%20connect%20the%20app%20with%20MongoDB)
+Be aware that the host name changes to the container name `frontend` if youre connecting from within the docker network.
