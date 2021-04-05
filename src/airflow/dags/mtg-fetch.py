@@ -30,7 +30,7 @@ clear_local_import_dir = ClearDirectoryOperator(
 )
 
 # Fetch data from API
-download_title_ratings = HttpDownloadOperator(
+download_mtg_cards = HttpDownloadOperator(
     task_id='download_mtg_cards',
     download_uri='https://api.magicthegathering.io/v1/cards',
     save_to='/home/airflow/mtg/raw/raw.json',
@@ -71,10 +71,9 @@ pyspark_create_final_mtg_data = SparkSubmitOperator(
 
 # Import final file into MongoDB via bash
 insert_into_mongodb = BashOperator(
-    task_id='bash_insert_into_mongodb',
+    task_id='insert_into_mongodb',
     bash_command='mongoimport --jsonArray --uri "mongodb://dev:dev@mongodb:27017/dhbw-big-data-mongodb" --collection Cards --file /user/hadoop/mtg/final/mtg_cards.json --batchSize 100 --numInsertionWorkers 310',
     dag=dag
 )
 
-create_local_import_dir >> clear_local_import_dir >> download_mtg_cards >> create_hdfs_mtg_cards_partition_dir >>
-hdfs_put_mtg_cards >> pyspark_create_final_mtg_data >> connect_MongoDb >> dummy_op
+create_local_import_dir >> clear_local_import_dir >> download_mtg_cards >> create_hdfs_mtg_cards_partition_dir >> hdfs_put_mtg_cards >> pyspark_create_final_mtg_data >> insert_into_mongodb
