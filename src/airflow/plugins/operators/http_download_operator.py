@@ -40,8 +40,8 @@ class HttpDownloadOperator(BaseOperator):
         # This is incredibly unoptimized
         while True:
             # Temporary limit for demonstration purposes
-            if page_num >= 50:
-                break
+            #if page_num >= 50:
+            #    break
 
             # Try downloading a page of cards
             self.log.info("Fetching page " + str(page_num))
