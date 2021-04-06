@@ -14,6 +14,33 @@ git clone https://github.com/Haiyn/dhbw-big-data.git && cd dhbw-big-data
 docker-compose up -d
 ```
 
+3. Wait for airflow container to finish initializing. (`docker logs` say "Container startup finished")
+
+4. Run `setup.sh` script
+```bash
+sh setup.sh
+```
+
+5. Wait for hadoop container to finish initializing.
+
+6. Run 
+```bash
+docker exec -it hadoop bash
+sudo su hadoop
+cd 
+start-all.sh 
+```
+
+HDFS will be available at `http://[host]:9870`.
+
+Airflow will be available at `http://[host]:8080/admin/`.
+
+The Frontend will be available at `http://[host]:3000`.
+
+Mongo-express will be available at `http://[host]:8081`.
+
+All other components are not reachable from outside of the docker network.
+
 
 ## Technical Documentation
 The repository is structured in a way to represent the docker container ecosystem of this application.

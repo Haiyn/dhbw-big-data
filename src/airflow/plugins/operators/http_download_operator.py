@@ -35,9 +35,16 @@ class HttpDownloadOperator(BaseOperator):
 
         self.log.info("Downloading '" + self.download_uri + "' to '" + self.save_to + "'.")
         page_num = 1
+        cards_object = []
 
+        # This is incredibly unoptimized
         while True:
+            # Temporary limit for demonstration purposes
+            if page_num >= 50:
+                break
+
             # Try downloading a page of cards
+            self.log.info("Fetching page " + str(page_num))
             try:
                 r = requests.get(self.download_uri + "?page=" + str(page_num)).json()
             except requests.exceptions.RequestException as e:
@@ -46,19 +53,17 @@ class HttpDownloadOperator(BaseOperator):
             # Check if the cards array in the response is empty. If so, exit the loop
             if 'cards' not in r or len(r['cards']) == 0:
                 break
-
-            # Append the data
-            with open(save_to, "w+") as file:
-                try:
-                    existing = json.load(file)
-                except Exception as e:
-                    existing = { }
-                existing.update(r)
-                file.seek(0)
-                json.dump(existing, file)
+            else:
+                for card in r['cards']:
+                    cards_object.append(card)
 
             # Increment page and continue
             page_num = page_num + 1
+
+        # Append the data
+        with open(self.save_to, "w+") as file:
+            file.seek(0)
+            json.dump(cards_object, file)
 
         self.log.info("HttpDownloadOperator done.")
 

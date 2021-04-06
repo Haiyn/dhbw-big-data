@@ -23,8 +23,6 @@ services:
       - "9870:9870"
       - "10000:10000"
     restart: always
-    # Start spark in the container via bash commands
-    command: bash -c "sudo su hadoop && cd && start-all.sh && pyspark --master yarn"
 
 
   big-data-airflow:

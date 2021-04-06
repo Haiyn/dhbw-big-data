@@ -35,11 +35,9 @@ if __name__ == '__main__':
 	    .options(header='true', delimiter=',', nullValue='null', inferschema='true')\
 	    .load(args.hdfs_source_dir + '/' + args.year + '/' + args.month + '/' + args.day + '/raw.json')
 
-    # Sanitize data
-    raw_mtg_card_dataframe = raw_mtg_card_dataframe['cards']\
-        .dropDuplicates()\
+    # Sanitize and select only the relevant data
+    raw_mtg_card_dataframe = raw_mtg_card_dataframe\
         .orderBy(desc('multiverseid'))\
-        # select only the relevant data
         .select('multiverseid', 'name', 'artist', 'text')
 
     # Write data to HDFS
