@@ -96,9 +96,11 @@ export default function Home({ isConnected }) {
                   borderRadius: 2,
                   boxShadow: '0 0 16px rgba(0, 0, 0, .25)',
                 }}>
-                <Image src={"http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=" + card.multiverseid} sx={{
-                  width: '100%',
-                  borderRadius: 8,
+                <Image
+                  src={card.multiverseid !== undefined ? "http://gatherer.wizards.com/Handlers/Image.ashx?type=card&multiverseid=" + card.multiverseid : "/404_card.png"}
+                  sx={{
+                    width: '100%',
+                    borderRadius: 8,
                 }}/>
                 <Box px={2}>
                   <Heading>

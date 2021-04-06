@@ -6,7 +6,7 @@ export default async (req, res) => {
   let clauses = [];
   if(req.query.multiverseid) clauses.push({ multiverseid: req.query.multiverseid });
   if(req.query.name) clauses.push({ name: {$regex : ".*" + req.query.name+ ".*"} });
-  if(req.query.artist) clauses.push({ name: {$regex : ".*" + req.query.artist + ".*"} });
+  if(req.query.artist) clauses.push({ artist: {$regex : ".*" + req.query.artist + ".*"} });
 
   // Make sure no $and clause is included if no parameters were given
   // else, clauses is empty and conditions = {] is used
