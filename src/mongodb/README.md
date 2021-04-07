@@ -14,6 +14,7 @@ Each card is saved as a JSON document in the "Cards" collection. Each document d
   "text": "[text]"
 }
 ```
+In some instances, [the multiverseid might be not defined](https://docs.magicthegathering.io/#api_v1cards_list). In this case, the property simply does not exist in the data entry.
 
 An example json with 3 entries is available in [`/src/mongodb/sample_data.json`](/src/mongodb/sample_data.json).
 
